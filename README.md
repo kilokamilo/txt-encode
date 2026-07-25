@@ -33,6 +33,5 @@ Zsh script that encodes a string to hexadecimal or decodes a hexadecimal string 
 ### Install (optional)
 
 ```bash
-mkdir -p ~/.local/usr/bin
-install -m 755 hexcoder ~/.local/usr/bin/hexcoder
+install -m 755 hexcoder /usr/local/bin/hexcoder
 ```
