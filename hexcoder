@@ -1,41 +1,36 @@
-#!/bin/zsh
+#!/bin/sh
 
-# Description: Encode a string to hexadecimal or decodes a hexadecimal string to ASCII
-# Usage: code_string <string>
+# Description: Encode a string to hexadecimal or decode a hexadecimal string to ASCII
+# Usage: hexcoder <string>
 
 # Check if xxd is installed
-if command -v xxd >/dev/null 2>&1; then
-#    echo "xxd is installed"
-else
-    echo "xxd is not installed"
+if ! command -v xxd >/dev/null 2>&1; then
+    echo "xxd is not installed" >&2
     exit 1
 fi
 
 # Check if exactly one argument is provided
-if [[ $# -ne 1 ]]; then
-    echo "Error: Please provide exactly one argument"
-    echo "Usage: $0 <string>"
+if [ "$#" -ne 1 ]; then
+    echo "Error: Please provide exactly one argument" >&2
+    echo "Usage: $0 <string>" >&2
     exit 1
 fi
 
 input=$1
 
-# Check if string is hexadecimal
-# Hex string should only contain 0-9, a-f, A-F
-if [[ $input =~ ^[0-9a-fA-F]+$ ]]; then
-#    echo "Input '$input' is a hexadecimal string"
-      echo $input | xxd -r -p; echo
+# Check if string is hexadecimal (0-9, a-f, A-F only)
+if printf '%s' "$input" | grep -Eq '^[0-9a-fA-F]+$'; then
+    printf '%s' "$input" | xxd -r -p
+    printf '\n'
     exit 0
 fi
 
-# Check if string is ASCII
-# ASCII string should only contain printable ASCII characters (32-126)
-if [[ $input =~ ^[[:print:]]+$ ]]; then
-#    echo "Input '$input' is an ASCII string"
-    echo -n $input | xxd -p | tr '[:lower:]' '[:upper:]'
+# Check if string is printable ASCII (POSIX [[:print:]])
+if printf '%s' "$input" | grep -Eq '^[[:print:]]+$'; then
+    printf '%s' "$input" | xxd -p | tr '[:lower:]' '[:upper:]'
     exit 0
 fi
 
 # If neither hex nor ASCII
-echo "Input '$input' is neither a valid hexadecimal nor ASCII string"
+echo "Input '$input' is neither a valid hexadecimal nor ASCII string" >&2
 exit 1

@@ -4,16 +4,17 @@ Encodes text.
 
 ## hexcoder
 
-Zsh script that encodes a string to hexadecimal or decodes a hexadecimal string to ASCII (via `xxd`).
+POSIX `sh` script that encodes a string to hexadecimal or decodes a hexadecimal string to ASCII (via `xxd`).
 
 ### Requirements
 
-- `zsh`
+- `sh` (any POSIX shell)
 - `xxd`
+- `grep` (for hex / printable checks)
 
 ### Usage
 
-```bash
+```sh
 ./hexcoder <string>
 ```
 
@@ -22,7 +23,7 @@ Zsh script that encodes a string to hexadecimal or decodes a hexadecimal string 
 
 ### Examples
 
-```bash
+```sh
 ./hexcoder hello
 # 68656C6C6F
 
@@ -32,6 +33,6 @@ Zsh script that encodes a string to hexadecimal or decodes a hexadecimal string 
 
 ### Install (optional)
 
-```bash
+```sh
 install -m 755 hexcoder /usr/local/bin/hexcoder
 ```
