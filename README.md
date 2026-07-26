@@ -1,8 +1,4 @@
-# txt-encode
-
-Encodes text.
-
-## hexcoder
+# hexcoder
 
 POSIX `sh` script that encodes a string to hexadecimal or decodes a hexadecimal string to ASCII (via `xxd`).
 
